@@ -19,7 +19,8 @@ sorted(list2)
 list2[2]
 list2[2] = 'Z'  #list is mutable, ie. values can be changed
 list2
-#%%mutatble - changed, immutable- cannot be changed
+
+\#%%mutatble - changed, immutable- cannot be changed
 #tuple - multiple type of objects like list, immutable: ( round brackets) : no changes
 tuple1 = (1, 2, 'a', 'b')
 tuple1
@@ -43,7 +44,7 @@ car.get('year')
 dir(car)
 car['brand'] = 'MARUTI'
 car  #mutable , value can be changed
-
+dir?
 #%%frozen Dictionaries
 #pip install frozendict   #install this library
 from frozendict import frozendict
@@ -147,6 +148,7 @@ marksz
 
 #%% #numpy - array - same data type - numerical python
 list1 = [1,2,3,5]
+list1
 import numpy
 numpy.array([10,20])
 numpy.array([list1])
@@ -157,11 +159,14 @@ np1
 
 x=np.arange(start=1,stop=1000000,step=2)
 len(x)
+x
 x[1:100]
 x[1:50:10]
 np
 np.mean(np.arange(1,10000000))
+np?
 np1
+np.mean(z[0:100])
 type(np1)
 np?
 #help on numpy 
@@ -170,13 +175,15 @@ np.mean?  # help on mean function of numpy
 
 np2 = np.array([ 90, 50, 60, 70 ])
 np2
-np.sort(np2)
+np.sort(np2)[::-1]
 dir(np)
 
 np3 = np.array([[1,4],[3,1],[5,6],[10,50]])
 np3
 np3.shape
-
+np4 = np.array([['a','h'],['k','satvika']])
+np4
+np.array?
 np3.reshape((-1,1))  #1 column from 2 column
 
 #http://cs231n.github.io/python-numpy-tutorial/
@@ -200,6 +207,8 @@ df1.shape  # rows and columns
 df1.groupby('gender').size()
 df1.groupby('gender')['marks'].mean()
 df1.groupby('gender').aggregate({'marks': [np.mean, 'max','min','std','count']})
+1
+np.array([1,2])
 
 #%% #Graphs https://python-graph-gallery.com/
 #https://matplotlib.org/
@@ -214,16 +223,17 @@ plt.hist(df1['marks'])
 import seaborn as sns
 # sns.set(style="ticks", color_codes=True)
 iris = sns.load_dataset("iris")
-iris.head()
+iris
+iris.head(n=20)
 iris.tail()
-df1.groupby('gender').size()
+iris.groupby('species').size()
 iris.groupby('species').size().plot(kind='bar')
 sns.pairplot(iris)  #relationship diagrams
 
 
 #%% #Load Inbuilt Datasets
 
-#pip install pydataset
+pip install pydataset
 from pydataset import data
 data('iris')
 data('mtcars')
@@ -257,7 +267,7 @@ data2a
 data2a = pd.read_csv('mtcars.csv') #when csv is in project folder
 data2a
 data2b
-data2b = pd.read_csv('E:/analytics/projects/pyanalytics/mtcars.csv')
+data2b = pd.read_csv('C:/analytics/projects/pyanalytics/mtcars.csv')
 data2b
 #csv in any other location - full path
 data2b
