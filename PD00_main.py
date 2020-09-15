@@ -28,7 +28,7 @@ mtcarsDF.select_dtypes(exclude=['int64'])
 mtcarsDF.isna() #missing value
 mtcarsDF.notna() #no missing value (na)
 id(mtcarsDF) #dataframe identity
-mtcars.empty?
+mtcars.empty
 mtcars.size
 mtcars.ndim
 mtcars.axes
@@ -36,21 +36,21 @@ mtcars.values
 
 #%%% access DF
 mtcarsDF[0:5]
-mtcarsDF[0:5,0:3]
+mtcarsDF[0:5:1,0:3:1]  #error
 
 #single value: at
 mtcarsDF.at['Mazda RX4', 'mpg']
-mtcarsDF.at['Mazda RX4', 'mpg']
+mtcarsDF.at['Mazda RX4', 'cyl']
 
 #single values : iat : integer
 mtcarsDF.iat[0,0]
-mtcarsDF.iat[0,0:5]
-
+mtcarsDF.iat[0,0:5] #error
+mtcarsDF.head()
 #set of values : loc : index values
 mtcarsDF.index
-mtcarsDF.loc[['Mazda 4X4']]
-mtcarsDF.loc['Mazda 4X4', ['mpg']]
-mtcarsDF.loc[7:9]
+mtcarsDF.loc[['Mazda RX4']]
+mtcarsDF.loc['Mazda RX4', ['mpg']]
+mtcarsDF.loc[7:9]  #error
 
 #iloc
 mtcarsDF
@@ -60,11 +60,12 @@ mtcarsDF.loc['Mazda RX4', ['mpg', 'wt']]
 mtcarsDF.loc['Merc 280', ['mpg', 'wt']]
 mtcarsDF.loc['Mazda RX4':'Datsun 710']  #difficult to implement
 
-#loc uses index labels, iloc considers position in the index
+#iloc uses index labels, iloc considers position in the index
 
 mtcarsDF.iloc[1:10, 1:5]
 mtcarsDF.iloc[1:10:2, 1:5:2]
 mtcarsDF.iloc[1::2, 1::2]
+mtcarsDF.iloc[5:10, 6:8]
 mtcarsDF.iloc[0]
 mtcarsDF.iloc[1:5]
 mtcarsDF.iloc[1,5] #2nd row, 6th column
@@ -76,16 +77,19 @@ mtcarsDF.iloc[::2].iloc[::2] #first alternate, again alternate
 mtcarsDF.iloc[:-2:-2]  #which rows is this
 mtcarsDF.iloc[1::5,:]  #5th row start from 1(2nd row)
 mtcarsDF.iloc[0:3]
-
+mtcarsDF.iloc[:-2:-2] 
+mtcarsDF.iloc[:] 
 
 #filter
 mtcarsDF.filter(['gear', 'am'])
-mtcarsDF.filter(regex = '[gGa]')  #small or big G or a in the column name
+mtcarsDF.filter(regex = '[v]')  #small or big G or a in the column name
 
-mtcarsDF.filter(items=['gear','am'])
+mtcarsDF.filter(items=['gear','am'])  #regex = regular expression
+mtcarsDF.filter(items=['Mazda RX4'],axis=0)
+
 mtcarsDF.filter(regex='Toyota', axis=0)  #rownames axis=0
 mtcarsDF.filter(regex='am', axis=1)  #colnames axis=1
-
+mtcarsDF.filter(regex='Mazda RX4',axis=0)
 #%%statistics 0- column, 1-row
 mtcarsDF.mean(axis=0)
 mtcarsDF.mean(axis=1)
@@ -96,6 +100,7 @@ mtcarsDF.max(axis=1)
 mtcarsDF.rank(axis=0)
 mtcarsDF.skew(axis=0)
 mtcarsDF.skew(axis=1)
+mtcarsDF
 
 
 
@@ -153,13 +158,14 @@ mtcarsDF.describe()  # default only numeric
 #%% sort
 mtcarsDF.sort_values(by='gear', axis=0)
 mtcarsDF.sort_values(by=['gear', 'mpg'])
-
+mtcarsDF.sort_values(by=['gear', 'mpg'],ascending=[True,False],axis=0)
 
 
 
 
 #%%% groupby
 mtcarsDF.describe()
+mtcarsDF['carnames'] = mtcarsDF.index
 mtcarsDF.groupby('gear')
 mtcarsDF.groupby(['gear'])
 mtcarsDF.groupby(['gear']).groups.keys()
@@ -199,6 +205,7 @@ mtcarsDF.groupby('gear').mean()
 mtcarsDF.groupby('gear').mean().add_prefix('MEAN_')
 
 gearGp = mtcarsDF.groupby('gear')
+gearGp
 gearGp.mean()
 gearGp.nth(1)
 gearGp.nth([1,3])
