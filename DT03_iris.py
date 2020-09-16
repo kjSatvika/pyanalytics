@@ -20,13 +20,13 @@ clf.predict_proba([[2., 2.]])
 
 
 #Using the Iris dataset, we can construct a tree as follows:
-
+import numpy as np
 from sklearn.datasets import load_iris
 from sklearn import tree
 X, y = load_iris(return_X_y=True)
-X
+X.columns
 y
-clf = tree.DecisionTreeClassifier()
+clf = tree.DecisionTreeClassifier(max_depth = 2)
 clf = clf.fit(X, y)
 
 #Once trained, you can plot the tree with the plot_tree function:
@@ -43,14 +43,14 @@ iris.target_names
 dot_data = tree.export_graphviz(clf, out_file=None,  feature_names=iris.feature_names,  class_names=iris.target_names, filled=True, rounded=True,  special_characters=True)  
 
 import os
-os.environ["PATH"] += os.pathsep + 'c:/Program Files (x86)/Graphviz2.38/bin/'
+os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz/bin/'
 
 import graphviz 
 from subprocess import call
 call(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
      
 graph = graphviz.Source(dot_data)  
-graph 
+graph
 
 #Alternatively binaries for graphviz can be downloaded from the graphviz project homepage, and the Python wrapper installed from pypi with pip install graphviz.
 #Below is an example graphviz export of the above tree trained on the entire iris dataset; the results are saved in an output file iris.pdf:

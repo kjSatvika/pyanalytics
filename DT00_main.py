@@ -9,28 +9,34 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os   #operating systems
+os.listdir('C:/analytics/projects/pyanalytics') #lists the files in given folder
 
-import os
-os.listdir('E:/analytics/projects/pyanalytics/data') #change the folder to see what are the file in folder
 #dataset
 #data = pd.read_csv('E:/analytics/projects/pyanalytics/data/bill_authentication.csv')
 data = pd.read_csv('https://raw.githubusercontent.com/DUanalytics/pyAnalytics/master/data/bill_authentication.csv')
 data.head()
 data.shape
 data.columns
+
 #data preparation : X & Y
-X= data.drop('Class', axis=1) #axis=1 -> column
+X= data.drop('Class', axis=1) #axis=1 -> column #dropping the column-Class
 y= data['Class']
 X
 y
 y.value_counts()
+
 #split data
 from sklearn.model_selection import train_test_split
 #https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.20)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.20)  
+#split data into 4 parts with the x_train = 80% and x_test = 20% # split across rows
+# X and y split into columns and rows
 X_train.shape
 X_test.shape
-275/data.shape[0]
+275/data.shape[0]  # just to verify
+data.shape    # no. of (rows,columns)
+data.shape[0] # [0] = no. of rows
 
 #model
 from sklearn.tree import DecisionTreeClassifier
@@ -46,13 +52,15 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 classification_report(y_true=y_test, y_pred= ypred1)
 confusion_matrix(y_true=y_test, y_pred=ypred1)
 accuracy_score(y_true=y_test, y_pred=ypred1)
+(145+124)/275
 
 #new data
 newData = X.sample(4)
+newData
 clsModel.predict(newData)
 
 #visualise 
-#pip install graphviz
+pip install graphviz
 from graphviz import Source
 from sklearn import tree
 tree.plot_tree(decision_tree=clsModel)
@@ -82,6 +90,7 @@ data2 = pd.read_csv('https://raw.githubusercontent.com/DUanalytics/pyAnalytics/m
 data2.head()
 data2.shape
 data2.columns
+
 #data preparation : X & Y
 X2= data2.drop('Petrol_Consumption', axis=1) #axis=1 -> column
 y2= data2['Petrol_Consumption']
@@ -108,6 +117,7 @@ len(ypred2)
 df2 = pd.DataFrame({'Actual':y2_test, 'Predicted': ypred2, 'diff':y2_test-ypred2})
 df2
 df2.shape[0]
+
 #metrics
 from sklearn import metrics
 #Mean Abs Error
@@ -125,6 +135,7 @@ np.sqrt(metrics.mean_squared_error(y_true=y2_test, y_pred=ypred2))
 #new data
 newData2 = X2.sample(4)
 regrModel.predict(newData2)
+newData2
 
 #visualise 
 from graphviz import Source
