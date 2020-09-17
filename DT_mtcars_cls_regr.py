@@ -5,20 +5,22 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pydataset import data
-import seaborn as sns
+import seaborn as sns     #enhances graphing features
 df = data('mtcars')
 df.head()
 #from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.model_selection import train_test_split
 from sklearn import metrics, tree
-df['am'].value_counts()
+df['am'].value_counts()   # am = automatic
 df.columns
 
 #classification
 #predict if transmission of car is 0 or 1 on basis of mpg, hp, wt
 X1 = df[['mpg','hp','wt']]
-Y1 = df[['am']]
+Y1 = df['am']
 Y1.value_counts()
+type(Y1)
+type(X1)
 
 #for splitting into train and test 
 from sklearn.model_selection import train_test_split
@@ -29,8 +31,8 @@ X1_test.shape
 #classification tree
 from sklearn.tree import DecisionTreeClassifier
 clsModel = DecisionTreeClassifier()  #model with parameter
-clsModel.fit(X1_train, Y1_train)
-ypred1 = clsModel.predict(X1_test)
+clsModel.fit(X1_train, Y1_train)     #dependent and independent variable
+ypred1 = clsModel.predict(X1_test)   #predict on test data
 len(ypred1)
 ypred1
 Y1_test
@@ -50,10 +52,10 @@ fig = plt.figure(figsize=(30,20))
 tree.plot_tree(clsModel,  feature_names=['mpg','hp','wt'],   class_names= ['auto(0)','manual(1)'],  filled=True, node_ids=True)  
 plt.show();
 #(The plot_tree returns annotations for the plot, to not show them in the notebook I assigned returned value to _.)
-_ = tree.plot_tree(clsModel,  feature_names=['mpg','hp','wt'],   class_names= ['am'],  filled=True)  
+#_ = tree.plot_tree(clsModel,  feature_names=['mpg','hp','wt'],   class_names= ['am'],  filled=True)  
 
 #To save the figure to the .png file:
-fig.savefig("classtreee.png")
+#fig.savefig("classtreee.png")
 
 
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
@@ -121,7 +123,9 @@ df2['ypred2'] = ypred2
 df2
 df2['mpg'].values
 #Root Mean Squared Error (RMSE)
-np.sqrt(metrics.mean_squared_error(y_true=Y2_test, y_pred=ypred2))
+#np.sqrt(metrics.mean_squared_error(y_true=Y2_test, y_pred=ypred2))
+
+from sklearn import metrics
 np.sqrt(metrics.mean_squared_error(y_true=df2['mpg'].values, y_pred=df2['ypred2'].values))
 #predict for unknown data
 newData2 = X2.sample(4)

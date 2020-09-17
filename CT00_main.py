@@ -32,28 +32,29 @@ plt.show();
 data.dtypes
 data.isnull().any()
 data.isnull().any(axis=1)
-data.index[data.isnull().any(axis=1)]
+data.index[data.isnull().any(axis=1)]  #lists out rows with atleast 1 missing value
 data.iloc[6]  #see the null values
 data.isnull().sum().sum()  #75 missing values 
 data.isnull().sum(axis=0)  #columns missing
 data.isnull().sum(axis=1)
-data1 = data.dropna()
 
-data1.isnull().any()
+data1 = data.dropna()
+data1data1.isnull().any()
 data1.isnull().sum().sum()
 
-data2 =  data1.select_dtypes(exclude=['object'])
+data2 =  data1.select_dtypes(exclude=['object']) #select only numerical values
 data2.head()
 from sklearn.preprocessing import StandardScaler
-scalar = StandardScaler()
+scalar = StandardScaler()  #scaling data
 data2_scaled = scalar.fit_transform(data2)
-
+type(data2_scaled)
 data2_scaled.describe() #it converts to different format
 pd.DataFrame(data2_scaled).describe()
+pd.DataFrame(data2_scaled).head()
 
 #kmeans
 from sklearn.cluster import KMeans
-kmeans = KMeans(n_clusters=2)  #hyper parameters
+kmeans = KMeans(n_clusters=3)  #hyper parameters
 
 kmeans.fit(data2_scaled)
 kmeans.inertia_  #sum of sq distances of samples to their centeroid
