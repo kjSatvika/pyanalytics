@@ -14,20 +14,22 @@ df.columns
 df.dtypes
 
 #scatter
-plt.scatter(x=df.wt, y=df.mpg, color='red', marker='o', size=df.am)
+plt.scatter(x=df.wt, y=df.mpg, color='red', marker='x')
 plt.show();
 
 #plot2
 df['wt']; df['mpg']
-size1 = df['hp'].to_numpy() 
-plt.scatter(x='wt', y='mpg', data=df, s=size1)
+size1 = df['hp'].to_numpy() #size of points = horse power
+plt.scatter(x='wt', y='mpg', data=df, s=size1) 
 plt.xlabel('Weight')
 plt.ylabel('Mileage')
 plt.show();
 
 #color, transparency, shape
-plt.scatter(x='wt', y='mpg', s='hp', alpha=.5, c='carb', data=df)
+plt.scatter(x='wt', y='mpg', s='hp', alpha=.5, c='carb', data=df) #alpha = transparency
 plt.show();
+
+df.head()
 
 #histogram
 plt.hist(x=df.mpg, bins=5)
@@ -36,12 +38,17 @@ plt.show();
 plt.hist(x=df.mpg, bins=[0,15,20,24,27,35,50])
 plt.show();
 
+plt.hist(x=df.mpg, bins=[0,25,35,50])
+
 plt.hist(x=df.mpg, bins=[0,15,20,22,25,30,35,40,50])
 plt.show();
 
 #barplot
 gearSum = df.groupby('gear').size()
 gearSum
+plt.bar(x=['Gear3','Gear4','Gear5'], height = gearSum)
+plt.show();
+
 plt.bar(x=['G3','G4','G5'], height = gearSum)
 plt.show();
 
@@ -52,6 +59,11 @@ plt.show();
 #pie
 plt.pie(x=gearSum, labels=['G3','G4','G5'])
 
+carb = df.groupby('carb').size()
+carb
+plt.pie(x=carb, labels=['c1','c2','c3','c4','c5','c6'])
+
+
 #pair
 sns.pairplot(df[['wt', 'mpg','hp']])
 plt.show();
@@ -61,6 +73,10 @@ plt.show();
 sns.boxplot(x=None, y=df['mpg'])
 sns.boxplot(x=df['gear'], y=df['mpg'])
 sns.boxplot(x=df['carb'], y=df['mpg'], color='g')
+df.head()
+
+#corelation = strength and direction of relationship
+#covariance = direction of relationship
 
 #heatmap
 df.corr()
@@ -82,7 +98,7 @@ df.head(10)
 plt.plot(df.wt, df.mpg)
 
 
-#cat plot
+#category plot
 #for discreete values
 sns.countplot(x="gear", data=df)
 sns.countplot(y="gear", data=df, hue="carb")  #horis
@@ -120,8 +136,13 @@ sns.heatmap(gearCarb2, center=0)
 #box plot
 sns.boxplot(y='mpg', data=df)
 sns.boxplot(x='am', y='mpg', data=df)
+
+#swarm plot
 sns.swarmplot(x='carb', y='mpg', data=df)
+
+#violin plot
 sns.violinplot(x='gear', y='mpg', data=df)
+sns.boxplot(x='gear', y='mpg', data=df)
 
 
 #end.. practise with other datasets
