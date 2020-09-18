@@ -144,5 +144,5 @@ sns.swarmplot(x='carb', y='mpg', data=df)
 sns.violinplot(x='gear', y='mpg', data=df)
 sns.boxplot(x='gear', y='mpg', data=df)
 
-
+ 
 #end.. practise with other datasets
